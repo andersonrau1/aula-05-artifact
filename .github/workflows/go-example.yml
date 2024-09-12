@@ -16,14 +16,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          node-version: '20'  # Especifica o uso do Node.js 20
+
+      - name: Set up Go environment
+        run: |
+          go mod init aula-05-artifact || echo "Module already initialized"
 
       - name: Build for Linux
-        run: go build -o ${{ env.FILE_NAME }}.go
+        run: go build -o ${{ env.FILE_NAME }} ${{ env.FILE_NAME }}.go
 
       - name: Build for Windows
-        run: GOOS=windows GOARCH=amd64 go build -o ${{ env.FILE_NAME }}.exe
+        run: GOOS=windows GOARCH=amd64 go build -o ${{ env.FILE_NAME }}.exe ${{ env.FILE_NAME }}.go
 
       - name: Upload artifact for Linux
         uses: actions/upload-artifact@v3
@@ -43,34 +45,4 @@ jobs:
     needs: build-go
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          node-version: '20'  # Especifica o uso do Node.js 20
-
-      - name: Download Linux artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: linux
-          path: ./linux  # Especifica o diretório de destino
-
-      - name: Make executable
-        run: chmod +x ./linux/${{ env.FILE_NAME }}  # Corrige o caminho do arquivo
-
-      - name: Run script
-        run: source ./run.sh
-
-  download-only-windows:
-    name: Download Windows
-    runs-on: windows-latest
-    needs: build-go
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          node-version: '20'  # Especifica o uso do Node.js 20
-
-      - name: Download Windows artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: windows
-          path: ./windows
+        uses: a
