@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@latest
 
       - name: Build for Linux
         run: go build ${{ env.FILE_NAME }}.go
@@ -24,13 +24,13 @@ jobs:
         run: GOOS=windows GOARCH=amd64 go build ${{ env.FILE_NAME }}.go
 
       - name: Upload artifact for Linux
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@latest
         with:
           name: linux
           path: ./${{ env.FILE_NAME }}
 
       - name: Upload artifact for Windows
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@latest
         with:
           name: windows
           path: ./${{ env.FILE_NAME }}.exe
@@ -41,10 +41,10 @@ jobs:
     needs: build-go
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@latest
 
       - name: Download Linux artifact
-        uses: actions/download-artifact@v1.0.0
+        uses: actions/download-artifact@latest
         with:
           name: linux
 
@@ -57,9 +57,9 @@ jobs:
     needs: build-go
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@latest
 
       - name: Download Windows artifact
-        uses: actions/download-artifact@v1.0.0
+        uses: actions/download-artifact@latest
         with:
           name: windows
