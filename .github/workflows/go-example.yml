@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          node-version: '20'  # Especifica o uso do Node.js 20
 
       - name: Build for Linux
         run: go build -o ${{ env.FILE_NAME }}.go
@@ -42,6 +44,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          node-version: '20'  # Especifica o uso do Node.js 20
 
       - name: Download Linux artifact
         uses: actions/download-artifact@v3
@@ -62,6 +66,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          node-version: '20'  # Especifica o uso do Node.js 20
 
       - name: Download Windows artifact
         uses: actions/download-artifact@v3
